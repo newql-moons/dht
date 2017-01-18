@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="462acf1e-2fb7-424f-9506-b165c4b162b5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worker.py" afterPath="$PROJECT_DIR$/worker.py" />
     </list>
     <ignored path="dht.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -493,7 +492,14 @@
       <option name="project" value="LOCAL" />
       <updated>1484714053683</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="log">
+      <created>1484714840636</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1484714840636</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
