@@ -26,6 +26,6 @@ def parse_nodes(b_str):
         info = b_str[i * 26: i * 26 + 26]
         node_id = info[:20]
         ip = socket.inet_ntoa(info[20:24])
-        port = struct.unpack('!H', info[24:])
+        port = struct.unpack('!H', info[24:])[0]
         nodes.append(Node(node_id, (ip, port)))
     return nodes

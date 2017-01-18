@@ -71,9 +71,9 @@ class Branch(object):
         return self
 
     def nodes(self):
-        for node in self.left:
+        for node in self.left.nodes():
             yield node
-        for node in self.right:
+        for node in self.right.nodes():
             yield node
 
     def buckets(self):

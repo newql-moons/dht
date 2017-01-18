@@ -19,7 +19,6 @@ class SendWorker(threading.Thread):
         while not self.is_stop:
             data, addr = self.buf.get()
             self.spider.sock.sendto(data, addr)
-            logging.info('Send %s to %s' % (data, addr))
 
     def stop(self):
         self.is_stop = True
@@ -102,10 +101,9 @@ class RecvWorker(threading.Thread):
 
     def run(self):
         self.is_stop = False
-        while self.is_stop:
+        while not self.is_stop:
             msg, addr = self.spider.sock.recvfrom(65535)
             self.msg_handler(msg, addr)
-            logging.info('Recv %s from %s' % (msg, addr))
 
     def stop(self):
         self.is_stop = True
@@ -136,6 +134,7 @@ class RecvWorker(threading.Thread):
             self.spider.send_worker.resp_find_node(nodes, transaction_id, addr)
             self.spider.send_worker.req_find_node(self.spider.node_id, addr)
             self.spider.routetab.insert(Node(node_id, addr))
+            logging.DEBUG('Recv req(find_node) from %s:%d' % addr)
 
         def get_peers(transaction_id, addr):
             info_hash = a[b'info_hash']
@@ -148,11 +147,14 @@ class RecvWorker(threading.Thread):
 
             self.spider.routetab.insert(Node(node_id, addr))
             self.spider.info_hashes.append(info_hash)
+            logging.DEBUG('Recv req(get_peer) from %s:%d' % addr)
 
         def announce_peer(transaction_id, addr):
             info_hash = a[b'info_hash']
             self.spider.dispose(info_hash)
             self.spider.send_worker.resp_announce_peer(transaction_id, addr)
+            logging.DEBUG('Recv req(announce_peer) from %s:%d' % addr)
+
         handlers = {
             b'ping': ping,
             b'find_node': find_node,
@@ -170,12 +172,14 @@ class RecvWorker(threading.Thread):
             for node in nodes:
                 self.spider.routetab.insert(node)
                 self.spider.send_worker.req_find_node(self.spider.node_id, node.addr)
+            # logging.DEBUG('Recv resp(find_node)')
+            print('Recv resp(find_node)')
 
         def get_peers(transaction_id, addr):
-            pass
-        if r[b'nodes']:
+            logging.DEBUG('Recv resp(get_peers) from %s:%d' % addr)
+        if r.get(b'nodes'):
             return find_node
-        elif r[b'values']:
+        elif r.get(b'values'):
             return get_peers
         else:
             return ping

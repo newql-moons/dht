@@ -1,5 +1,5 @@
 k = 8
-addr = ('0.0.0.0', 6060)
+addr = ('0.0.0.0', 6863)
 
 start_url = [
     ('router.bittorrent.com', 6881),
