@@ -134,7 +134,7 @@ class RecvWorker(threading.Thread):
             self.spider.send_worker.resp_find_node(nodes, transaction_id, addr)
             self.spider.send_worker.req_find_node(self.spider.node_id, addr)
             self.spider.routetab.insert(Node(node_id, addr))
-            logging.DEBUG('Recv req(find_node) from %s:%d' % addr)
+            logging.debug('Recv req(find_node) from %s:%d' % addr)
 
         def get_peers(transaction_id, addr):
             info_hash = a[b'info_hash']
@@ -147,13 +147,13 @@ class RecvWorker(threading.Thread):
 
             self.spider.routetab.insert(Node(node_id, addr))
             self.spider.info_hashes.append(info_hash)
-            logging.DEBUG('Recv req(get_peer) from %s:%d' % addr)
+            logging.debug('Recv req(get_peer) from %s:%d' % addr)
 
         def announce_peer(transaction_id, addr):
             info_hash = a[b'info_hash']
             self.spider.dispose(info_hash)
             self.spider.send_worker.resp_announce_peer(transaction_id, addr)
-            logging.DEBUG('Recv req(announce_peer) from %s:%d' % addr)
+            logging.debug('Recv req(announce_peer) from %s:%d' % addr)
 
         handlers = {
             b'ping': ping,
@@ -172,11 +172,11 @@ class RecvWorker(threading.Thread):
             for node in nodes:
                 self.spider.routetab.insert(node)
                 self.spider.send_worker.req_find_node(self.spider.node_id, node.addr)
-            logging.DEBUG('Recv resp(find_node)')
+            logging.debug('Recv resp(find_node)')
             # print('Recv resp(find_node)')
 
         def get_peers(transaction_id, addr):
-            logging.DEBUG('Recv resp(get_peers) from %s:%d' % addr)
+            logging.debug('Recv resp(get_peers) from %s:%d' % addr)
         if r.get(b'nodes'):
             return find_node
         elif r.get(b'values'):
