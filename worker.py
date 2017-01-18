@@ -172,8 +172,8 @@ class RecvWorker(threading.Thread):
             for node in nodes:
                 self.spider.routetab.insert(node)
                 self.spider.send_worker.req_find_node(self.spider.node_id, node.addr)
-            # logging.DEBUG('Recv resp(find_node)')
-            print('Recv resp(find_node)')
+            logging.DEBUG('Recv resp(find_node)')
+            # print('Recv resp(find_node)')
 
         def get_peers(transaction_id, addr):
             logging.DEBUG('Recv resp(get_peers) from %s:%d' % addr)
