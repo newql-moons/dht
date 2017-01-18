@@ -35,6 +35,7 @@ class Spider(object):
             for node in self.routetab.nodes():
                 for info_hash in self.info_hashes:
                     self.send_worker.req_get_peers(info_hash, node.addr)
+            logging.debug(str(self.routetab.__len__()))
 
     def dispose(self, info_hash):
         logging.info(info_hash)
