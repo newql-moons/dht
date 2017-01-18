@@ -12,7 +12,7 @@ class Node(object):
     @property
     def info(self):
         ip, port = self.addr
-        info = self.id
+        info = self.id.bytes
         info += socket.inet_aton(ip)
         info += struct.pack('!H', port)
         return info
