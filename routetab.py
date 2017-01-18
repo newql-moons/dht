@@ -98,7 +98,7 @@ class Branch(object):
         if isinstance(son, Bucket):
             nodes = []
             nodes.extend(list(son))
-            others = iter(other)
+            others = iter(other.nodes())
             for i in range(k - len(nodes)):
                 nodes.append(next(others))
             return nodes
